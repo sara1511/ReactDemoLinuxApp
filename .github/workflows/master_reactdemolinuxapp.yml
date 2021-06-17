@@ -8,6 +8,12 @@ on:
     branches:
       - master
 
+env:
+  AZURE_WEBAPP_NAME: reactdemolinuxapp    # set this to your application's name
+  AZURE_WEBAPP_PACKAGE_PATH: './build'      # set this to the path to your web app project, defaults to the repository root
+  NODE_VERSION: '14.x'                # set this to the node version to use
+  REACT_APP_GAME_TITLE: 'Let's Play TIC-TAC-TOE'
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -18,18 +24,18 @@ jobs:
     - name: Set up Node.js version
       uses: actions/setup-node@v1
       with:
-        node-version: '14.x'
+        node-version: ${{ env.NODE_VERSION }}
 
     - name: npm install, build, and test
       run: |
-        npm install
+        npm ci --production
         npm run build --if-present
         npm run test --if-present
 
     - name: 'Deploy to Azure Web App'
       uses: azure/webapps-deploy@v2
       with:
-        app-name: 'reactdemolinuxapp'
+        app-name:  ${{ env.AZURE_WEBAPP_NAME }}
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_4831e2d845564dfa999c7d315c450690 }}
-        package: .
+        package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
