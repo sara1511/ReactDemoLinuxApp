@@ -32,4 +32,4 @@ jobs:
         app-name: 'react-demo-tic-tac-toe'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_361e039e02b740e686de7bf42178ef7b }}
-        package: .
+        package: ./build
