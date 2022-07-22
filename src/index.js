@@ -108,6 +108,7 @@ class Game extends React.Component {
 
     return (
       <div>
+        <h1>{process.env.REACT_APP_GAME_TITLE || "Hey! Let's Play TIC-TAC-TOE 2"}</h1>
         <div className="game">
           <div className="game-board">
             <Board
