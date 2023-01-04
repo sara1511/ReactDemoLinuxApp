@@ -1,5 +1,5 @@
 # ### Step 1 using node image and serve command
-# FROM node:18
+# FROM node:14
 # # Install OpenSSH and set the password for root to "Docker!". In this example, "apk add" is the install instruction for an Alpine Linux-based image.
 # RUN apt-get update \
 #     && apt-get install -y --no-install-recommends openssh-server \
@@ -8,7 +8,7 @@
 # RUN mkdir /app
 # WORKDIR /app
 # ENV PATH ./node_modules/.bin:$PATH
-# COPY package.json .
+# COPY package*.json .
 # # Run install build scripts
 # RUN npm install --silent
 # RUN npm install -g react-scripts serve --silent
@@ -27,11 +27,11 @@
 
 ### Step 2 using node image and nginx command
 ### STAGE 1: Build ###
-FROM node:18 as build
+FROM node:14 as build
 RUN mkdir /app
 WORKDIR /app
 ENV PATH ./node_modules/.bin:$PATH
-COPY package.json .
+COPY package*.json .
 RUN npm install --silent
 RUN npm install -g react-scripts --silent
 COPY . .
